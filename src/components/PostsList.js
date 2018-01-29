@@ -1,26 +1,29 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component} from 'react';
 import { connect } from 'react-redux';
-import { itemsFetchData } from '../actions/items';
+import PropTypes from 'prop-types'
+import { FetchDataFromServer } from '../actions/items';
 
-class ItemList extends Component {
+class PostsList extends Component {
     componentDidMount() {
-        this.props.fetchData('http://599167402df2f40011e4929a.mockapi.io/items');
+        console.log('PostsList- componentDidMount begins....')
+        //this.props.fetchData('http://localhost:3001/categories');
     }
 
     render() {
+        console.log('PostsList- render begins....')
         if (this.props.hasErrored) {
-            return <p>Sorry! There was an error loading the items</p>;
+            return <p>Sorry! There was an error loading data....</p>;
         }
 
         if (this.props.isLoading) {
-            return <p>Loading…</p>;
+            return <p>Loading....</p>;
         }
 
         return (
             <ul>
-                {this.props.items.map((item) => (
-                    <li key={item.id}>
-                        {item.label}
+                {this.props.posts.map((post) => (
+                    <li key={post.id}>
+                        {post}
                     </li>
                 ))}
             </ul>
@@ -45,8 +48,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchData: (url) => dispatch(itemsFetchData(url))
+        fetchData: (url) => dispatch(FetchDataFromServer(url))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ItemList);
+export default connect(mapStateToProps, mapDispatchToProps)(PostsList);

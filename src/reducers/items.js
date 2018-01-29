@@ -9,6 +9,8 @@ export function itemsHasErrored(state = false, action) {
 }
 
 export function itemsIsLoading(state = false, action) {
+    console.log(`itemsIsLoading: action: ${action} `)
+    console.log(`itemsIsLoading: state: ${state} `)
     switch (action.type) {
         case 'ITEMS_IS_LOADING':
             return action.isLoading;
